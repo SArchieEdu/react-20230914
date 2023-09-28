@@ -1,4 +1,3 @@
-import React from "react";
 import { mocks } from "../../constants/mock";
 import { Product } from "../../components/Product/component";
 
@@ -9,7 +8,8 @@ export const MainPage = () => {
 
   return (
     <div>
-      {mocks?.length > 0 && mocks.map(({ name }) => <Product name={name} />)}
+      {mocks?.length > 0 &&
+        mocks.map(({ id, name }) => <Product key={id} name={name} />)}
     </div>
   );
 };
