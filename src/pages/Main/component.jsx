@@ -1,19 +1,18 @@
-import { mocks } from "../../constants/mock";
 import { Product } from "../../components/Product/component";
 import { AuthorizationForm } from "../../components/AuthorizationForm/component";
-import { UserContext, UserProvider } from "../../contexts/User";
+import { UserProvider } from "../../contexts/User";
+import { useSelector } from "react-redux";
+import { selectHeadphoneIds } from "../../redux/entities/headphone/selectors";
 
 export const MainPage = () => {
-  if (!mocks?.length) {
-    return null;
-  }
+  const productIds = useSelector(selectHeadphoneIds);
 
   return (
     <UserProvider>
       <div>
         <AuthorizationForm />
-        {mocks?.length > 0 &&
-          mocks.map(({ id, name }) => <Product key={id} name={name} />)}
+        {productIds?.length > 0 &&
+          productIds.map((id) => <Product key={id} productId={id} />)}
       </div>
     </UserProvider>
   );

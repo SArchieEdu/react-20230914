@@ -1,3 +1,23 @@
+.root {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.info {
+    display: flex;
+    flex-direction: column;
+}
+
+.codecs {
+    display: flex;
+}
+
+.codec:not(:last-child) {
+    margin-right: 5px;
+}
+
 .action {
     margin-right: 10px;
 }
