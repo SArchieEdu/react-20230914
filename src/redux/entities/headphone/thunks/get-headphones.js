@@ -3,10 +3,16 @@ import { selectHeadphoneIds } from "../selectors";
 
 export const getHeadphones = createAsyncThunk(
   "headphones/getHeadphones",
-  async () => {
+  async (_, { rejectWithValue }) => {
     const response = fetch("http://localhost:3001/api/products/");
 
-    return (await response).json();
+    const result = (await response).json();
+
+    if (!result.length) {
+      return rejectWithValue("Empty array");
+    }
+
+    return result;
   },
   {
     condition: (_, { getState }) => !selectHeadphoneIds(getState())?.length,
