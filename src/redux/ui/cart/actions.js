@@ -5,8 +5,4 @@ export const increment = (productId) => ({
   payload: productId,
 });
 
-dispatch(increment("123123"));
-
 export const decrement = createAction("cart/decrement");
-
-dispatch(decrement("123123"));

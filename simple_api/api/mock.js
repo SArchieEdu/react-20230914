@@ -64,7 +64,7 @@ const normalizedCodecs = [
 const normalizedHeadphones = [
   {
     name: "Apple AirPods Pro",
-    id: "MLXJ2LL/A",
+    id: "MLXJ2LLA",
     type: "in-ear",
     max_volume: "80 dB",
     brand: "Apple",

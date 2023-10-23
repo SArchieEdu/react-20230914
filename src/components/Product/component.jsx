@@ -8,11 +8,16 @@ import { selectHeadphoneById } from "../../redux/entities/headphone/selectors";
 import { selectProductAmountById } from "../../redux/ui/cart/selectors";
 import { cartActions } from "../../redux/ui/cart";
 import { testThunk } from "../../redux/ui/cart/thunk/test-thunk";
+import { useGetHeadphonesQuery } from "../../redux/services/api";
+import { Reviews } from "../Reviews/component";
 
-export const Product = ({ productId }) => {
-  const product = useSelector((state) => selectHeadphoneById(state, productId));
+export const Product = ({ product }) => {
+  // const product = useGetHeadphonesQuery(null, {
+  //   selectFromResult: (result) =>
+  //     result?.data.find(({ id }) => id === productId),
+  // });
   const amount = useSelector((state) =>
-    selectProductAmountById(state, productId)
+    selectProductAmountById(state, product.id)
   );
   const dispatch = useDispatch();
 
@@ -24,28 +29,31 @@ export const Product = ({ productId }) => {
 
   return (
     <div className={styles.root}>
-      <div className={styles.info}>
-        <span>{name}</span>
-        <div className={styles.codecs}>
-          {codecs.map((id) => (
-            <Codec key={id} codecId={id} className={styles.codec} />
-          ))}
+      <div className={styles.product}>
+        <div className={styles.info}>
+          <span>{name}</span>
+          <div className={styles.codecs}>
+            {codecs.map((id) => (
+              <Codec key={id} codecId={id} className={styles.codec} />
+            ))}
+          </div>
+        </div>
+        <div>
+          <Button
+            title="-"
+            onClick={() => dispatch(cartActions.decrement(product.id))}
+            disabled={amount === 0}
+            className={styles.action}
+          />
+          {amount}
+          <Button
+            title="+"
+            onClick={() => dispatch(cartActions.increment(product.id))}
+            disabled={amount === 5}
+          />
         </div>
       </div>
-      <div>
-        <Button
-          title="-"
-          onClick={() => dispatch(cartActions.decrement(productId))}
-          disabled={amount === 0}
-          className={styles.action}
-        />
-        {amount}
-        <Button
-          title="+"
-          onClick={() => dispatch(cartActions.increment(productId))}
-          disabled={amount === 5}
-        />
-      </div>
+      <Reviews productId={product.id} />
     </div>
   );
 };

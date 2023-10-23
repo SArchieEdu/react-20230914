@@ -1,32 +1,25 @@
 import { Product } from "../../components/Product/component";
 import { AuthorizationForm } from "../../components/AuthorizationForm/component";
 import { UserProvider } from "../../contexts/User";
-import { useDispatch, useSelector } from "react-redux";
 import {
-  selectHeadphoneIds,
-  selectHeadphoneLoadingStatus,
-} from "../../redux/entities/headphone/selectors";
-import { useEffect } from "react";
-import { getHeadphones } from "../../redux/entities/headphone/thunks/get-headphones";
-import { REQUEST_STATUS } from "../../constants/statuses";
+  useGetHeadphonesQuery,
+  useLazyGetHeadphonesQuery,
+} from "../../redux/services/api";
+import { useState } from "react";
 
 export const MainPage = () => {
-  const productIds = useSelector(selectHeadphoneIds);
-  const loadingStatus = useSelector(selectHeadphoneLoadingStatus);
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(getHeadphones());
-  }, []);
+  const { data, isFetching } = useGetHeadphonesQuery();
+  // const [loadHeadphones, { data, isFetching }] = useLazyGetHeadphonesQuery();
 
   return (
     <UserProvider>
       <div>
+        {/* <button onClick={() => loadHeadphones()}>loadHeadphones</button> */}
         <AuthorizationForm />
-        {loadingStatus === REQUEST_STATUS.pending ? (
+        {isFetching ? (
           <div>Loading...</div>
         ) : (
-          productIds.map((id) => <Product key={id} productId={id} />)
+          data?.map((product) => <Product key={product.id} product={product} />)
         )}
       </div>
     </UserProvider>
