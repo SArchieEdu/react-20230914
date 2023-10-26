@@ -8,14 +8,14 @@ router.get("/products", (req, res, next) => {
 });
 
 router.get("/product/:productId", (req, res, next) => {
-  const restaurantId = req.params?.restaurantId;
-  let restaurant;
+  const productId = req.params?.productId;
+  let product;
 
-  if (restaurantId) {
-    restaurant = getById(products)(restaurantId);
+  if (productId) {
+    product = getById(products)(productId);
   }
 
-  reply(res, restaurant);
+  reply(res, product);
 });
 
 router.get("/codecs", (req, res, next) => {

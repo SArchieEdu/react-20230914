@@ -8,6 +8,8 @@ import { cartActions } from "../../redux/ui/cart";
 import { Reviews } from "../Reviews/component";
 import { useParams } from "react-router-dom";
 import { useGetHeadphonesQuery } from "../../redux/services/api";
+import { NavLink } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 
 export const Product = () => {
   const { productId } = useParams();
@@ -58,7 +60,11 @@ export const Product = () => {
           />
         </div>
       </div>
-      <Reviews productId={product.id} />
+      <div>
+        <NavLink to="details">Details</NavLink>
+        <NavLink to="reviews">Reviews</NavLink>
+      </div>
+      <Outlet />
     </div>
   );
 };

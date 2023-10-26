@@ -6,6 +6,7 @@ import store from "./redux";
 import { Route } from "react-router-dom";
 import { ProductsPage } from "./pages/Products/component";
 import { Product } from "./components/Product/component";
+import { Navigate } from "react-router-dom";
 
 export const App = () => {
   return (
@@ -17,7 +18,11 @@ export const App = () => {
             <Route index element={<MainPage />} />
             <Route path="products" element={<ProductsPage />}>
               <Route index element={<div>Select Product</div>} />
-              <Route path=":productId" element={<Product />} />
+              <Route path=":productId" element={<Product />}>
+                <Route index element={<Navigate to="details" replace />} />
+                <Route path="details" element={<div>Details</div>} />
+                <Route path="reviews" element={<div>Reviews</div>} />
+              </Route>
             </Route>
             <Route path="cart" element={<div>Cart</div>} />
             <Route path="*" element={<div>NotFound</div>} />

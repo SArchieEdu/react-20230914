@@ -158,8 +158,8 @@ const normalizedHeadphones = [
     codecs: ["djuaddfs2g6g7", "djuh34782g6g7", "ngu45hg8374hg3g8"],
   },
   {
-    name: "Panasonic RZ-S300WGE",
-    id: "RZ-S300WGE-K",
+    name: "Panasonic RZS300WGE",
+    id: "RZS300WGEK",
     type: "true wireless",
     max_volume: "90 dB",
     brand: "Panasonic",
